@@ -23,7 +23,7 @@ client.getCertificate("NodeWebCert").then((response) => {
     console.log(thumbprint);
 });
 
-const privateKeySource = fs.readFileSync('./NodeWebCert.pem')
+const privateKeySource = fs.readFileSync('./certificates/NodeWebCert/NodeWebCert.pem')
 
 const privateKeyObject = crypto.createPrivateKey({
     key: privateKeySource,
