@@ -4,9 +4,9 @@
 
 |        |        |
 |--------|--------|
-| [Using certificates]() | generate and trust self-signed certificates, import certificate files and obtain keys, initialize confidential client apps with certificate thumbprints and private key |
-| [Using Key Vault]() | use Azure CLI to sign in to Azure, integrate Azure SDKs to access key vault, import certificate files |
-| [Using Managed Identity]() | deploy to Azure App Service, initialize Managed Identity, modify code |
+| [Using certificates](#using-certificates) | generate and trust self-signed certificates, import certificate files and obtain keys, initialize confidential client apps with certificate thumbprints and private key |
+| [Using Key Vault](#using-azure-key-vault) | use Azure CLI to sign in to Azure, integrate Azure SDKs to access key vault, import certificate files |
+| [Using Managed Identity](#using-azure-managed-identity) | deploy to Azure App Service, initialize Managed Identity, modify code |
 
 ## Overview
 
