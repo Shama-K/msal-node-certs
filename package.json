@@ -1,0 +1,25 @@
+{
+  "name": "msal-node-auth-code",
+  "version": "1.0.0",
+  "description": "sample app for msal-node",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "author": "Microsoft",
+  "license": "MIT",
+  "dependencies": {
+    "@azure/arm-keyvault": "^1.2.1",
+    "@azure/identity": "^1.2.3",
+    "@azure/keyvault-admin": "^4.0.0-beta.2",
+    "@azure/keyvault-certificates": "^4.1.0",
+    "@azure/keyvault-keys": "^4.1.0",
+    "@azure/keyvault-secrets": "^4.1.0",
+    "@azure/msal-node": "^1.0.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
