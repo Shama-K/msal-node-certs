@@ -2,13 +2,6 @@
 
 > :warning: Before you start here, make sure you understand [initialize-confidential-client-application](https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-node/docs/initialize-confidential-client-application.md).
 
-## Prerequisites
-
-* Node v12
-* OpenSSL
-
-## Sections
-
 |        |        |
 |--------|--------|
 | [Using certificates](#using-certificates) | generate self-signed certificate, import certificate files and obtain keys, initialize confidential client apps |
