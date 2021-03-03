@@ -2,6 +2,13 @@
 
 > :warning: Before you start here, make sure you understand []().
 
+## Prerequisites
+
+* Node.js 12 LTS
+* OpenSSL 2 LTS
+
+## Content
+
 |        |        |
 |--------|--------|
 | [Using certificates](#using-certificates) | generate and trust self-signed certificates, import certificate files and obtain keys, initialize confidential client apps with certificate thumbprints and private key |
@@ -29,13 +36,21 @@ Build and install **OpenSSL** for your **OS** following the guide at [github.com
 
 Afterwards, add the path to `OpenSSL` to your **environment variables** so that you can call it from anywhere.
 
-Type the following in a terminal:
+Type the following in a terminal. You will be prompted to enter some identifying information and a *passphrase*:
 
 ```console
-    OpenSSL> req -new -sha256 -nodes -out example.com.csr -newkey rsa:2048 -keyout example.com.key 
+    openssl req -x509 -newkey rsa:4096 -sha256 -days 365 -keyout example.key -out example.crt -subj "/CN=example.com" -addext "subjectAltName=DNS:example.com"
+
+    Generating a RSA private key
+    ...........................................................................................................................................................................................................................................................++++
+    ......................................................................................................++++
+    writing new private key to 'example.key'
+    Enter PEM pass phrase:
+    Verifying - Enter PEM pass phrase:
+    ----- 
 ```
 
-You will be prompted to enter some identifying information, and a **challenge password** (*i.e.* *passphrase*), which will be asked in the next step. After that, the following files should be generated: `example.com.csr`, `example.com.key`.
+After that, the following files should be generated: `example.key`, `example.crt`.
 
 ```console
     OpenSSL> x509 -req -in example.com.csr -CA rootSSL.pem -CAkey rootSSL.key -CAcreateserial -out example.com.crt -days 500 -sha256
@@ -129,7 +144,7 @@ Setup a **HTTPS** server by importing the generated **certificate** and **public
     const https = require('https');
     const fs = require('fs');
 
-    const DEFAULT_PORT = process.env.PORT || 5000;
+    const DEFAULT_PORT = process.env.PORT || 3000;
     
     // initialize express.
     const app = express();
@@ -148,12 +163,20 @@ Setup a **HTTPS** server by importing the generated **certificate** and **public
 
 ## Using Azure Key Vault
 
+In Azure Key Vault, supported certificate formats are PFX and PEM.
+
+.pem file format contains one or more X509 certificate files.
+.pfx file format is an archive file format for storing several cryptographic objects in a single file i.e. server certificate (issued for your domain), a matching private key, and may optionally include an intermediate CA.
+
+openssl pkcs12 -export -out example.pfx -inkey example.key -in example.crt
+
 ### Create a key vault and import certificates
 
 First, create a key vault. Follow the guide: [Quickstart: Create a key vault using the Azure portal](https://docs.microsoft.com/azure/key-vault/general/quick-create-portal#create-a-vault)
 
 > :information_source: In addition to certificates, **Azure Key Vault** can also be used for storing secrets and other sensitive information such as database connection strings and etc.
 
+[Tutorial: Import a certificate in Azure Key Vault](https://docs.microsoft.com/azure/key-vault/certificates/tutorial-import-certificate)
 Now you can upload your certificate to Key Vault:
 
 1. Step1:
@@ -236,3 +259,4 @@ Now, open the `WebApp/auth.json` that you have deployed to **Azure App Service**
 
 * [Microsoft identity platform application authentication certificate credentials](https://docs.microsoft.com/azure/active-directory/develop/active-directory-certificate-credentials)
 * [Azure Key Vault Developer's Guide](https://docs.microsoft.com/azure/key-vault/general/developers-guide)
+* [Various SSL/TLS Certificate File Types/Extensions](https://docs.microsoft.com/archive/blogs/kaushal/various-ssltls-certificate-file-typesextensions)
